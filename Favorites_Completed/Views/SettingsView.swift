@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     
     @AppStorage("isDarkMode") private var isDarkMode: Bool = false
-    @EnvironmentObject private var favoritesViewModel: FavoritesViewModel
+    @EnvironmentObject private var favorites: FavoritesViewModel
     @State private var showResetAlert: Bool = false
     
     var body: some View {
@@ -30,7 +30,7 @@ struct SettingsView: View {
                 }
                 .alert("Are you sure you want to clear all favorites?", isPresented: $showResetAlert) {
                     Button("Clear", role: .destructive) {
-                        favoritesViewModel.clearAllFavorites()
+                        handleClearAll()
                     }
                     Button("Cancel", role: .cancel) { }
                 } message: {
@@ -39,6 +39,10 @@ struct SettingsView: View {
             }
             .navigationTitle("Settings")
         }
+    }
+    
+    private func handleClearAll() {
+        favorites.clearAllFavorites()
     }
 }
 

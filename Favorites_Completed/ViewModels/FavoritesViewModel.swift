@@ -4,7 +4,6 @@
 // Copyright © 2025 Auburn University.
 // All Rights Reserved.
 
-
 import Foundation
 import SwiftUI
 
@@ -40,17 +39,24 @@ class FavoritesViewModel : ObservableObject {
         hobbyManager.toggleFavorite(items: &hobbies, targetItem: hobby)
     }
     
+    func filteredBooks(searchText: String) -> [BookModel] {
+        bookManager.filteredItems(items: books, searchText: searchText)
+    }
+    
+    func toggleFavoriteBook(book: BookModel) {
+        bookManager.toggleFavorite(items: &books, targetItem: book)
+    }
+    
     func clearAllFavorites() {
         cityManager.clearFavorites(items: &cities)
         hobbyManager.clearFavorites(items: &hobbies)
+        bookManager.clearFavorites(items: &books)
     }
-    
-    
 }
 
+// Sample data for each category
 
 let sampleCities: [CityModel] = [
-
     CityModel(id : 1, cityName: "Cape Town", cityImage: "capetown", isFavorite: false),
     CityModel(id : 2, cityName: "Copenhagen", cityImage: "copenhagen", isFavorite: false),
     CityModel(id : 3, cityName: "Lisbon", cityImage: "lisbon", isFavorite: false),
@@ -61,7 +67,6 @@ let sampleCities: [CityModel] = [
     CityModel(id : 8, cityName: "Amsterdam", cityImage: "amsterdam", isFavorite: false),
     CityModel(id : 9, cityName: "Los Angeles", cityImage: "losangeles", isFavorite: false)
 ]
-
 
 let sampleHobbies: [HobbyModel] = [
     HobbyModel(id : 1, hobbyName: "Painting", hobbyIcon: "🎨", isFavorite: false),
